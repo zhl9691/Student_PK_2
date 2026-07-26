@@ -1,0 +1,6 @@
+{
+  "name": "AI助教系统",
+  "description": "单页应用的AI助教系统演示，包含语音识别、视频上传与分析的全流程模拟。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
