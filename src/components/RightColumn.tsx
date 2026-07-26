@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Upload, FileVideo, CheckCircle2, Mic, Square, Loader2, Sparkles } from 'lucide-react';
+import { Upload, FileVideo, FileImage, File as FileIcon, CheckCircle2, Mic, Square, Loader2, Sparkles } from 'lucide-react';
 import { useVoiceSimulation } from '../hooks/useVoiceSimulation';
 import { useTypewriter } from '../hooks/useTypewriter';
 import { motion, AnimatePresence } from 'motion/react';
@@ -33,7 +33,7 @@ export function RightColumn() {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
-    if (selectedFile && selectedFile.name.endsWith('.mp4')) {
+    if (selectedFile) {
       setFile(selectedFile);
       setIsUploading(true);
       setUploadProgress(0);
@@ -99,7 +99,7 @@ export function RightColumn() {
           isUploadComplete && (
             <div className="flex items-center gap-2 bg-emerald-50/80 px-3 py-1.5 rounded-full border border-emerald-100 backdrop-blur-sm">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-              <span className="text-[11px] text-emerald-600 font-semibold tracking-wide">视频解析完成</span>
+              <span className="text-[11px] text-emerald-600 font-semibold tracking-wide">文件解析完成</span>
             </div>
           )
         )}
@@ -112,7 +112,7 @@ export function RightColumn() {
         <div className="mb-2 relative z-10">
           <input 
             type="file" 
-            accept=".mp4" 
+            accept=".mp4,.jpg,.jpeg,.png" 
             className="hidden" 
             ref={fileInputRef} 
             onChange={handleFileChange} 
@@ -125,7 +125,7 @@ export function RightColumn() {
               <div className="w-10 h-10 bg-white rounded-xl shadow-sm flex items-center justify-center group-hover:scale-110 transition-transform">
                 <Upload className="w-5 h-5 text-slate-400 group-hover:text-blue-500" />
               </div>
-              <span className="font-bold tracking-wide">选择视频文件 <span className="text-slate-400 font-normal">(限.mp4)</span></span>
+              <span className="font-bold tracking-wide">请上传文件</span>
             </button>
           ) : (
             <div 
@@ -135,7 +135,13 @@ export function RightColumn() {
             >
               <div className="absolute inset-0 bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity z-0 pointer-events-none"></div>
               <div className="w-14 h-14 bg-white/80 rounded-2xl flex items-center justify-center shadow-sm text-emerald-600 shrink-0 border border-emerald-50 relative z-10 backdrop-blur-sm group-hover:scale-105 transition-transform">
-                <FileVideo className="w-7 h-7" />
+                {file.type.startsWith('video/') ? (
+                  <FileVideo className="w-7 h-7" />
+                ) : file.type.startsWith('image/') ? (
+                  <FileImage className="w-7 h-7" />
+                ) : (
+                  <FileIcon className="w-7 h-7" />
+                )}
               </div>
               <div className="flex-1 min-w-0 relative z-10">
                 <div className="flex justify-between items-center mb-1.5">
@@ -153,7 +159,7 @@ export function RightColumn() {
                 {isUploadComplete && (
                   <div className="flex items-center gap-1.5 mt-2">
                     <div className="px-1.5 py-0.5 bg-emerald-100/80 rounded text-[9px] font-black text-emerald-700 uppercase tracking-widest border border-emerald-200/50">DONE</div>
-                    <span className="text-[11px] font-semibold text-emerald-600/90 tracking-wide">视频已上传 <span className="opacity-60 font-normal ml-1">(点击可重新上传)</span></span>
+                    <span className="text-[11px] font-semibold text-emerald-600/90 tracking-wide">文件已上传 <span className="opacity-60 font-normal ml-1">(点击可重新上传)</span></span>
                   </div>
                 )}
               </div>
@@ -228,7 +234,7 @@ export function RightColumn() {
                 {isAnalyzing ? (
                   <div className="flex items-center gap-4 text-blue-600 py-6 relative z-10">
                      <Loader2 className="w-6 h-6 animate-spin" />
-                     <span className="text-[15px] font-semibold tracking-wide animate-pulse bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">正在深度解析视频...</span>
+                     <span className="text-[15px] font-semibold tracking-wide animate-pulse bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">正在深度解析文件...</span>
                   </div>
                 ) : (
                   <div className="text-[15px] leading-relaxed text-slate-700 whitespace-pre-wrap overflow-y-auto relative z-10 font-medium">
