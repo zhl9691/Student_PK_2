@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Mic, Square } from 'lucide-react';
 import { useVoiceSimulation } from '../hooks/useVoiceSimulation';
 
-const PRESET_TEXT = "我想了解一下人工智能的发展历史。";
+const PRESET_TEXT = "首先立即停止用药，视频里面已经完成这一步了。下一步应该让患者吸氧，同时给予肾上腺素，同时准备好抢救的设备，预防情况进一步恶化。另外，我们还要及时安抚患者情绪，消除患者的恐惧。";
 
 export function LeftColumn() {
   const [finalText, setFinalText] = useState('');
