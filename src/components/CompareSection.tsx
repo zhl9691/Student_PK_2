@@ -27,10 +27,13 @@ AI回答：像“护理抢救标准预案”——从停药、呼医、体位、
 ✅ 有法律依据（《护士条例》第十七条）
 ✅ 有顺序：停药→呼医→体位→肾上腺素→辅助→监测→上报→留观
 ✅ 把“医生不在场护士也能先救”这个坑填上了
+✅ 现行指南更明确：肾上腺素首选大腿中外侧/前外侧肌内注射，皮下注射不作为常规首选
 ✅ 适合：护考简答题、护理病历、科室复盘
 ⚠️ AI 弱点：
 - “安抚情绪”这种人文护理完全没写，太冷、像操作手册
 - 同学能脱口而出的“别慌、陪着患者”，AI 要你提醒才加`;
+
+const COMPARE_GUIDELINE_NOTE = "指南小字标注：教材写“皮下注射或深部肌内注射、15 min 重复”；现行 AAAAI/ACAAI 2023、ASCIA 2024 与 RCUK 2021 建议优先选择大腿中外侧/前外侧肌内注射，气道/呼吸/循环问题持续时约 5 min 后再评估是否重复。具体执行以本院抢救预案和医嘱为准。";
 
 export function CompareSection() {
   const [show, setShow] = useState(false);
@@ -105,10 +108,17 @@ export function CompareSection() {
                      <span className="text-base font-semibold tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 animate-pulse">正在深度对比双方内容特征...</span>
                   </div>
                 ) : (
-                  <div className="whitespace-pre-wrap text-lg leading-relaxed text-slate-700 font-medium relative z-10">
-                    {displayedText}
-                    {isTyping && <span className="inline-block w-2.5 h-5 bg-gradient-to-b from-blue-500 to-purple-500 ml-1 animate-pulse align-middle rounded-sm"></span>}
-                  </div>
+                  <>
+                    <div className="whitespace-pre-wrap text-lg leading-relaxed text-slate-700 font-medium relative z-10">
+                      {displayedText}
+                      {isTyping && <span className="inline-block w-2.5 h-5 bg-gradient-to-b from-blue-500 to-purple-500 ml-1 animate-pulse align-middle rounded-sm"></span>}
+                    </div>
+                    {!isAnalyzing && !isTyping && displayedText && (
+                      <p className="mt-6 pt-4 border-t border-blue-200/70 text-sm leading-relaxed text-slate-500 relative z-10">
+                        {COMPARE_GUIDELINE_NOTE}
+                      </p>
+                    )}
+                  </>
                 )}
              </div>
           </motion.div>

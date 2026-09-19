@@ -22,8 +22,9 @@ const AI_ANSWER = `基于您提供的视频，我总结了以下几点核心内�
 - 呼吸困难者高流量吸氧，喉头水肿准备气管插管/环甲膜穿刺。
 
 4. 首选抢救药：肾上腺素
-- 过敏性休克：0.1% 肾上腺素 0.3～0.5 mg 肌注（大腿外侧），必要时 5～15 min 重复；
-- 严禁仅用激素/抗组胺药代替肾上腺素。
+- 现行指南首选肌内注射（IM）：按体重 0.01 mg/kg，成人单次最大 0.5 mg，注射于大腿中外侧/前外侧；
+- 气道、呼吸或循环问题持续时，5 min 后重新评估，必要时重复肌内注射；
+- 不把皮下注射作为常规首选途径，也不能用激素/抗组胺药代替肾上腺素。
 
 5. 辅助用药
 - 地塞米松 5～10 mg 静推；
@@ -36,6 +37,8 @@ const AI_ANSWER = `基于您提供的视频，我总结了以下几点核心内�
 
 7. 留观
 轻度皮疹也至少观察 24 h；严重过敏转 ICU。`;
+
+const GUIDELINE_NOTE = "指南小字标注：教材图片写作“皮下注射或深部肌内注射 0.1% 盐酸肾上腺素，15 min 可重复”。目前可检索到的现行权威建议（AAAAI/ACAAI 2023、ASCIA 2024、RCUK 2021）将大腿中外侧/前外侧肌内注射作为首选；成人常用 0.01 mg/kg、最大 0.5 mg，气道/呼吸/循环问题持续时约 5 min 后可重复。具体浓度、剂量和执行以本院抢救预案、药品说明书及医嘱为准。";
 
 export function RightColumn() {
   const [file, setFile] = useState<File | null>(null);
@@ -271,6 +274,11 @@ export function RightColumn() {
                     {aiAnswerText}
                     {aiIsTyping && <span className="inline-block w-2.5 h-5 bg-gradient-to-b from-blue-500 to-indigo-500 ml-1 animate-pulse align-middle rounded-sm"></span>}
                   </div>
+                )}
+                {!isAnalyzing && !aiIsTyping && aiAnswerText && (
+                  <p className="mt-5 pt-4 border-t border-blue-200/70 text-sm leading-relaxed text-slate-500 relative z-10">
+                    {GUIDELINE_NOTE}
+                  </p>
                 )}
               </div>
             </motion.div>
