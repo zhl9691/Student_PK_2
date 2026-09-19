@@ -49,18 +49,6 @@ export default function App() {
         <CompareSection />
       </div>
 
-      {/* Overlay (Visual Feedback Representation) */}
-      <div className="fixed bottom-8 right-8 w-80 p-5 bg-white/80 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/60 flex items-start gap-4 z-50 transition-all hover:shadow-blue-500/10 hover:-translate-y-1">
-        <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-blue-100 to-indigo-50 flex items-center justify-center text-blue-600 shrink-0 shadow-inner border border-blue-100/50 mt-0.5">
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
-        </div>
-        <div>
-          <div className="text-base font-bold text-slate-800 tracking-wide">小贴士</div>
-          <div className="text-sm text-slate-500 leading-relaxed mt-1 font-medium">点击底部对比按钮，可查看AI与用户输入之间的核心差异深度分析。</div>
-        </div>
-      </div>
     </div>
   );
 }
