@@ -5,27 +5,45 @@ import { useTypewriter } from '../hooks/useTypewriter';
 import { motion, AnimatePresence } from 'motion/react';
 
 const PRESET_REQ = "请帮我分析一下下一步的处理应该是什么。";
-const AI_ANSWER = `基于视频，建议按以下顺序处理：
+const AI_ANSWER = `**基于视频，建议按以下顺序处理：**
 
-1. 立即停药并呼救
+**1. 立即停药并呼救**
 停止青霉素输注/注射，保留静脉通路并更换输液器与生理盐水；立即通知医生、启动抢救团队。
 
-2. 保持体位并给氧
+**2. 保持体位并给氧**
 过敏性休克患者平卧、下肢抬高、保持气道通畅；呼吸困难者立即高流量吸氧。
 
-3. 立即使用肾上腺素
-皮下注射或深部肌内注射 0.1% 盐酸肾上腺素 0.5 mL；小儿按 0.01 mg/kg 计算，单次最大 0.3 mL。症状不缓解时，每隔 15 min 可重复 0.5 mL。
+**3. 立即使用肾上腺素**
+**皮下注射或深部肌内注射 0.1% 盐酸肾上腺素 0.5 mL**；小儿按 0.01 mg/kg 计算，单次最大 0.3 mL。症状不缓解时，每隔 15 min 可重复 0.5 mL。
 
-4. 准备抢救设备
+**4. 准备抢救设备**
 备好抢救车、气管插管/环甲膜穿刺等气道设备，必要时快速补液。
 
-5. 监测和后续处理
+**5. 监测和后续处理**
 持续监测 BP、P、R、SpO₂ 和神志，按需配合辅助用药；轻度皮疹至少留观 24 h，严重过敏转 ICU。
 
-6. 记录与上报
+**6. 记录与上报**
 记录发生时间、通知医生时间、用药、患者反应和处理经过，及时上报护理部/药剂科。`;
 
 const GUIDELINE_NOTE = "指南补充：教材写“皮下注射或深部肌内注射、15 min 可重复”；现行权威建议（AAAAI/ACAAI 2023、ASCIA 2024、RCUK 2021）更倾向将大腿中外侧/前外侧肌内注射作为首选，并建议气道/呼吸/循环问题持续时约 5 min 后重新评估。指南仅作补充，具体执行以本院抢救预案、药品说明书及医嘱为准。";
+
+function renderFormattedText(text: string) {
+  const lines = text.split('\n');
+  return lines.map((line, lineIndex) => (
+    <React.Fragment key={`${lineIndex}-${line}`}>
+      {line.split(/(\*\*.*?\*\*)/g).map((part, partIndex) =>
+        part.startsWith('**') && part.endsWith('**') ? (
+          <strong key={`${lineIndex}-${partIndex}`} className="font-extrabold text-slate-900">
+            {part.slice(2, -2)}
+          </strong>
+        ) : (
+          <React.Fragment key={`${lineIndex}-${partIndex}`}>{part}</React.Fragment>
+        ),
+      )}
+      {lineIndex < lines.length - 1 && <br />}
+    </React.Fragment>
+  ));
+}
 
 export function RightColumn() {
   const [file, setFile] = useState<File | null>(null);
@@ -258,7 +276,7 @@ export function RightColumn() {
                   </div>
                 ) : (
                   <div className="text-lg leading-relaxed text-slate-700 whitespace-pre-wrap overflow-y-auto relative z-10 font-medium">
-                    {aiAnswerText}
+                    {renderFormattedText(aiAnswerText)}
                     {aiIsTyping && <span className="inline-block w-2.5 h-5 bg-gradient-to-b from-blue-500 to-indigo-500 ml-1 animate-pulse align-middle rounded-sm"></span>}
                   </div>
                 )}

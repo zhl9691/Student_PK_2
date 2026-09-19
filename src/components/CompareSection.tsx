@@ -5,16 +5,16 @@ import { motion, AnimatePresence } from 'motion/react';
 
 const COMPARE_TEXT = `【深度对比分析】
 
-同学回答：视频中已经完成停药，接下来想到吸氧、肾上腺素、准备抢救设备和安抚患者，体现了抢救现场的快速反应和人文关怀。
-AI回答：在同学回答的基础上，补充了呼叫医生、保持体位、保留静脉通路、药物剂量、监测、留观和记录上报，形成了更完整的抢救流程。
+**同学回答：** 视频中已经完成停药，接下来想到吸氧、肾上腺素、准备抢救设备和安抚患者，体现了抢救现场的快速反应和人文关怀。
+**AI回答：** 在同学回答的基础上，补充了呼叫医生、保持体位、保留静脉通路、药物剂量、监测、留观和记录上报，形成了更完整的抢救流程。
 
-1. 同学回答的优点
-✅ 停药后立即想到吸氧和肾上腺素
-✅ 提前准备抢救车及气道设备，关注病情恶化风险
-✅ 能想到安抚患者、消除恐惧，体现人文护理
+**1. 同学回答的优点**
+✅ **停药后立即想到吸氧和肾上腺素**
+✅ **提前准备抢救车及气道设备**，关注病情恶化风险
+✅ **安抚患者、消除恐惧**，体现人文护理
 ✅ 顺序符合抢救现场“先处理、再完善”的时间线思维
 
-2. AI 补充的关键内容
+**2. AI 补充的关键内容**
 ❌ 立即通知医生、启动抢救团队
 ❌ 过敏性休克体位：平卧、下肢抬高并保持气道通畅
 ❌ 保留静脉通路并更换输液器与生理盐水
@@ -22,11 +22,29 @@ AI回答：在同学回答的基础上，补充了呼叫医生、保持体位、
 ❌ 监测生命体征、辅助用药、留观及严重过敏转 ICU
 ❌ 记录处理经过并及时上报护理部/药剂科
 
-3. 综合评价
-同学回答抓住了最紧急的现场处置，反应快、有临床温度；AI 则把抢救流程补充得更完整，尤其是呼救、体位、给药细节、监测和上报。
-两者结合后，既保留了“先抢救”的现场思维，也覆盖了护理记录、留观和后续管理要求。`;
+**3. 综合评价**
+同学回答抓住了**最紧急的现场处置**，反应快、有临床温度；AI 则把抢救流程补充得更完整，尤其是呼救、体位、给药细节、监测和上报。
+两者结合后，既保留了**“先抢救”的现场思维**，也覆盖了护理记录、留观和后续管理要求。`;
 
 const COMPARE_GUIDELINE_NOTE = "指南补充：教材写“皮下注射或深部肌内注射、15 min 重复”；现行 AAAAI/ACAAI 2023、ASCIA 2024 与 RCUK 2021 更倾向优先选择大腿中外侧/前外侧肌内注射，气道/呼吸/循环问题持续时约 5 min 后再评估是否重复。指南仅作补充，具体执行以教材教学要求、本院抢救预案和医嘱为准。";
+
+function renderFormattedText(text: string) {
+  const lines = text.split('\n');
+  return lines.map((line, lineIndex) => (
+    <React.Fragment key={`${lineIndex}-${line}`}>
+      {line.split(/(\*\*.*?\*\*)/g).map((part, partIndex) =>
+        part.startsWith('**') && part.endsWith('**') ? (
+          <strong key={`${lineIndex}-${partIndex}`} className="font-extrabold text-slate-900">
+            {part.slice(2, -2)}
+          </strong>
+        ) : (
+          <React.Fragment key={`${lineIndex}-${partIndex}`}>{part}</React.Fragment>
+        ),
+      )}
+      {lineIndex < lines.length - 1 && <br />}
+    </React.Fragment>
+  ));
+}
 
 export function CompareSection() {
   const [show, setShow] = useState(false);
@@ -103,7 +121,7 @@ export function CompareSection() {
                 ) : (
                   <>
                     <div className="whitespace-pre-wrap text-lg leading-relaxed text-slate-700 font-medium relative z-10">
-                      {displayedText}
+                      {renderFormattedText(displayedText)}
                       {isTyping && <span className="inline-block w-2.5 h-5 bg-gradient-to-b from-blue-500 to-purple-500 ml-1 animate-pulse align-middle rounded-sm"></span>}
                     </div>
                     {!isAnalyzing && !isTyping && displayedText && (
