@@ -33,7 +33,7 @@ AI回答：像“护理抢救标准预案”——从停药、呼医、体位、
 - “安抚情绪”这种人文护理完全没写，太冷、像操作手册
 - 同学能脱口而出的“别慌、陪着患者”，AI 要你提醒才加`;
 
-const COMPARE_GUIDELINE_NOTE = "指南补充（小字）：教材写“皮下注射或深部肌内注射、15 min 重复”；现行 AAAAI/ACAAI 2023、ASCIA 2024 与 RCUK 2021 更倾向优先选择大腿中外侧/前外侧肌内注射，气道/呼吸/循环问题持续时约 5 min 后再评估是否重复。指南仅作补充，具体执行以教材教学要求、本院抢救预案和医嘱为准。";
+const COMPARE_GUIDELINE_NOTE = "指南补充：教材写“皮下注射或深部肌内注射、15 min 重复”；现行 AAAAI/ACAAI 2023、ASCIA 2024 与 RCUK 2021 更倾向优先选择大腿中外侧/前外侧肌内注射，气道/呼吸/循环问题持续时约 5 min 后再评估是否重复。指南仅作补充，具体执行以教材教学要求、本院抢救预案和医嘱为准。";
 
 export function CompareSection() {
   const [show, setShow] = useState(false);

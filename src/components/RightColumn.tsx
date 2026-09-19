@@ -25,7 +25,7 @@ const AI_ANSWER = `基于视频，建议按以下顺序处理：
 6. 记录与上报
 记录发生时间、通知医生时间、用药、患者反应和处理经过，及时上报护理部/药剂科。`;
 
-const GUIDELINE_NOTE = "指南补充（小字）：图片教材写“皮下注射或深部肌内注射、15 min 可重复”；现行权威建议（AAAAI/ACAAI 2023、ASCIA 2024、RCUK 2021）更倾向将大腿中外侧/前外侧肌内注射作为首选，并建议气道/呼吸/循环问题持续时约 5 min 后重新评估。指南仅作补充，具体执行以本院抢救预案、药品说明书及医嘱为准。";
+const GUIDELINE_NOTE = "指南补充：教材写“皮下注射或深部肌内注射、15 min 可重复”；现行权威建议（AAAAI/ACAAI 2023、ASCIA 2024、RCUK 2021）更倾向将大腿中外侧/前外侧肌内注射作为首选，并建议气道/呼吸/循环问题持续时约 5 min 后重新评估。指南仅作补充，具体执行以本院抢救预案、药品说明书及医嘱为准。";
 
 export function RightColumn() {
   const [file, setFile] = useState<File | null>(null);
